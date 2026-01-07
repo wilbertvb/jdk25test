@@ -34,7 +34,5 @@ jobs:
     - name: Update dependency graph
       uses: advanced-security/maven-dependency-submission-action@v5
       with:
-      # The action will invoke Maven to generate the graph
-      directory: '.' # Default, if pom.xml is in the root
       # The token input defaults to the GITHUB_TOKEN from the environment
       token: ${{ secrets.GITHUB_TOKEN }}
