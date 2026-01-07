@@ -30,14 +30,11 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - name: Publish snapshot to GitHub Packages
-        run: mvn --batch-mode deploy
-        env:
-          # Use the built-in GitHub token for authentication
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@v5
-      with:
-      token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Submit Maven Dependency Snapshot
+        uses: advanced-security/maven-dependency-submission-action@v4
+        with:
+          # The action will invoke Maven to generate the graph
+          directory: '.' # Default, if pom.xml is in the root
+          # The token input defaults to the GITHUB_TOKEN from the environment
+          token: ${{ secrets.GITHUB_TOKEN }}
